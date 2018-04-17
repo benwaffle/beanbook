@@ -1,0 +1,20 @@
+{
+  "name": "beanbook",
+  "version": "1.0.0",
+  "description": "A place for all your beans.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benwaffle/beanbook.git"
+  },
+  "author": "The Mean Green Bean Machine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benwaffle/beanbook/issues"
+  },
+  "homepage": "https://github.com/benwaffle/beanbook#readme"
+}
