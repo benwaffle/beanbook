@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/benwaffle/beanbook/issues"
   },
-  "homepage": "https://github.com/benwaffle/beanbook#readme"
+  "homepage": "https://github.com/benwaffle/beanbook#readme",
+  "dependencies": {
+    "mongodb": "^3.0.6"
+  }
 }
