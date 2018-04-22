@@ -14,7 +14,7 @@ const getCollection = collection => {
 };
 
 module.exports = {
-  users: getCollectionFn("users"),
-  beans: getCollectionFn("beans"),
-  actions: getCollectionFn("actions")
+  users: getCollection("users"),
+  beans: getCollection("beans"),
+  actions: getCollection("actions")
 }
