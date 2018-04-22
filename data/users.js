@@ -49,15 +49,17 @@ let exportedMethods = {
     });
   },
   updateUser(id, firstName, lastName, passwordHash) {
-    return this.getUserById(id).then(currentUser => {
-      let updatedUser = {
-        firstName: firstName,
-        lastName: lastName,
-        password: passwordHash
-      };
+    return users().then(userCollection => {
+      return this.getUserById(id).then(currentUser => {
+        let updatedUser = {
+          firstName: firstName,
+          lastName: lastName,
+          password: passwordHash
+        };
 
-      return userCollection.updateOne({ _id: id}, updatedUser).then(() => {
-        return this.getUserById(id);
+        return userCollection.updateOne({ _id: id}, updatedUser).then(() => {
+          return this.getUserById(id);
+        });
       });
     });
   }
