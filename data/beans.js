@@ -1,71 +1,60 @@
-const mongoCollections = require("../config/mongoCollections");
-const beans = mongoCollections.beans;
+const schema = require("../schema");
 const uuid = require("uuid/v4");
 
 let exportedMethods = {
   getAllBeans() {
-    return beans().then(beanCollection => {
-      return beanCollection.find({}).toArray();
+    schema.Bean.find(function (err, beans) {
+      if (err) throw err;
+      return beans;
     });
   },
   getBeanById(id) {
-    return beans().then(beanCollection => {
-      return beanCollection.findOne({ _id: id }).then(bean => {
-        if (!bean) throw "Bean not found";
+    schema.Bean.find({ _id: id }, 
+      function (err, bean) {
+        if (err) throw err;
         return bean;
-      });
-    });
+      }
+    );
   },
   addBean(userId, title, type, description) {
     if (!userId) throw "There must be a creator for this bean";
     if (!title) throw "Title cannot be blank";
     if (!type) throw "Type cannot be blank";
     if (!description) throw "Description cannot be blank";
-    return beans().then(beanCollection => {
-      let newBean = {
-        creatorId: userId,
-        title: title,
-        _id: uuid(),
-        type: type,
-        description: description,
-        comments: [],
-        timestamp: new Date().toISOString()
-      };
+    
+    let newBean = new schema.Bean({
+      creatorId: userId,
+      title: title,
+      _id: uuid(),
+      type: type,
+      description: description,
+      comments: [],
+      timestamp: new Date().toISOString()
+    });
 
-      return beanCollection
-        .insertOne(newBean)
-        .then(newInsertInformation => {
-          return newInsertInformation.insertedId;
-        })
-        .then(newId => {
-          return this.getBeanById(newId);
-        });
+    newBean.save(function (err, bean) {
+      if (err) throw err;
+      return bean;
     });
   },
   removeBean(id) {
-    return beans().then(beanCollection => {
-      return beanCollection.removeOne({ _id: id }).then(deletionInfo => {
-        if (deletionInfo.deletedCount === 0) {
-          throw "Could not delete bean with id of " + id;
-        }
-      });
+    schema.Bean.remove({ _id: id }, function (err) {
+      if (err) throw err;
     });
   },
   updateBean(id, userId, title, type, description) {
-    return beans().then(beanCollection => {
-      return this.getBeanById(id).then(currentBean => {
-        let updatedBean = {
-          creatorId: userId,
-          title: title,
-          type: type,
-          description: description,
-        };
-
-        return beanCollection.updateOne({ _id: id}, updatedBean).then(() => {
-          return this.getBeanById(id);
-        });
-      });
-    });
+    let updatedBean = {
+      creatorId: userId,
+      title: title,
+      type: type,
+      description: description,
+    };
+    schema.Bean.findOneAndUpdate({ _id: id }, updatedBean, 
+      function (err, bean) {
+        if (err) throw err;
+        return bean;
+      }
+    );
   },
   getCommentById(id) {
     //TODO

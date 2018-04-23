@@ -1,18 +1,11 @@
-const MongoClient = require("mongodb").MongoClient;
+let mongoose = require('mongoose');
+mongoose.connect("mongodb://localhost:27017/beanbook")
 
-const mongoConfig = {
-  serverUrl: "mongodb://localhost:27017/",
-  database: "beanbook"
-};
-
-let _connection = undefined;
-let _db = undefined;
+let db = mongoose.connection;
 
 module.exports = async () => {
-  if (!_connection) {
-    _connection = await MongoClient.connect(mongoConfig.serverUrl);
-    _db = await _connection.db(mongoConfig.database);
-  }
-
-  return _db;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+    return db;
+  });
 };
