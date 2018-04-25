@@ -1,15 +1,15 @@
-const schema = require("../schema");
+const { User } = require('../schema')
 const uuid = require("uuid/v4");
 
 let exportedMethods = {
   getAllUsers() {
-    schema.User.find(function (err, users) {
+    User.find(function (err, users) {
       if (err) throw err;
       return users;
     });
   },
   getUserById(id) {
-    schema.User.find({ _id: id }, 
+    User.find({ _id: id }, 
       function (err, user) {
         if (err) throw err;
         return user;
@@ -21,7 +21,7 @@ let exportedMethods = {
     if (!lastName) throw "Last name cannot be blank";
     if (!passwordHash) throw "Password hash cannot be blank";
     
-    let newUser = new schema.User({
+    let newUser = new User({
       firstName: firstName,
       lastName: lastName,
       _id: uuid(),
@@ -35,7 +35,7 @@ let exportedMethods = {
     });
   },
   removeUser(id) {
-    schema.User.remove({ _id: id }, function (err) {
+    User.remove({ _id: id }, function (err) {
       if (err) throw err;
     });
   },
@@ -45,7 +45,7 @@ let exportedMethods = {
       lastName: lastName,
       password: passwordHash
     };
-    schema.User.findOneAndUpdate({ _id: id }, updatedUser, 
+    User.findOneAndUpdate({ _id: id }, updatedUser, 
       function (err, user) {
         if (err) throw err;
         return user;

@@ -1,15 +1,15 @@
-const schema = require("../schema");
+const { Action } = require('../schema')
 const uuid = require("uuid/v4");
 
 let exportedMethods = {
   getAllActions() {
-    schema.Action.find(function (err, actions) {
+    Action.find(function (err, actions) {
       if (err) throw err;
       return actions;
     });
   },
   getActionById(id) {
-    schema.Action.find({ _id: id }, 
+    Action.find({ _id: id }, 
       function (err, action) {
         if (err) throw err;
         return action;
@@ -21,7 +21,7 @@ let exportedMethods = {
     if (!actionType) throw "Action type cannot be blank";
     if (!beanId) throw "Bean cannot be blank";
 
-    let newAction = new schema.Action({
+    let newAction = new Action({
       user: userId,
       actionType: actionType,
       _id: uuid(),
@@ -36,7 +36,7 @@ let exportedMethods = {
     });
   },
   removeAction(id) {
-    schema.Action.remove({ _id: id }, function (err) {
+    Action.remove({ _id: id }, function (err) {
       if (err) throw err;
     });
   },
@@ -47,7 +47,7 @@ let exportedMethods = {
       bean: beanId,
       comment: commentId
     };
-    schema.Action.findOneAndUpdate({ _id: id }, updatedAction, 
+    Action.findOneAndUpdate({ _id: id }, updatedAction, 
       function (err, action) {
         if (err) throw err;
         return action;

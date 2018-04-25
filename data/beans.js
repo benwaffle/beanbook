@@ -1,15 +1,15 @@
-const schema = require("../schema");
+const { Bean } = require('../schema')
 const uuid = require("uuid/v4");
 
 let exportedMethods = {
   getAllBeans() {
-    schema.Bean.find(function (err, beans) {
+    Bean.find(function (err, beans) {
       if (err) throw err;
       return beans;
     });
   },
   getBeanById(id) {
-    schema.Bean.find({ _id: id }, 
+    Bean.find({ _id: id }, 
       function (err, bean) {
         if (err) throw err;
         return bean;
@@ -22,7 +22,7 @@ let exportedMethods = {
     if (!type) throw "Type cannot be blank";
     if (!description) throw "Description cannot be blank";
     
-    let newBean = new schema.Bean({
+    let newBean = new Bean({
       creatorId: userId,
       title: title,
       _id: uuid(),
@@ -38,7 +38,7 @@ let exportedMethods = {
     });
   },
   removeBean(id) {
-    schema.Bean.remove({ _id: id }, function (err) {
+    Bean.remove({ _id: id }, function (err) {
       if (err) throw err;
     });
   },
@@ -49,7 +49,7 @@ let exportedMethods = {
       type: type,
       description: description,
     };
-    schema.Bean.findOneAndUpdate({ _id: id }, updatedBean, 
+    Bean.findOneAndUpdate({ _id: id }, updatedBean, 
       function (err, bean) {
         if (err) throw err;
         return bean;
