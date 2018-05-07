@@ -1,7 +1,7 @@
 const { User } = require('../schema')
 const uuid = require("uuid/v4");
 
-let exportedMethods = {
+module.exports = {
   getAllUsers() {
     User.find(function (err, users) {
       if (err) throw err;
@@ -53,5 +53,3 @@ let exportedMethods = {
     );
   }
 };
-
-module.exports = exportedMethods;

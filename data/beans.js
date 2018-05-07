@@ -1,7 +1,7 @@
 const { Bean } = require('../schema')
 const uuid = require("uuid/v4");
 
-let exportedMethods = {
+module.exports = {
   getAllBeans() {
     Bean.find(function (err, beans) {
       if (err) throw err;
@@ -69,5 +69,3 @@ let exportedMethods = {
     //TODO
   },
 };
-
-module.exports = exportedMethods;

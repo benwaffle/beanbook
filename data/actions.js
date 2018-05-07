@@ -1,7 +1,7 @@
 const { Action } = require('../schema')
 const uuid = require("uuid/v4");
 
-let exportedMethods = {
+module.exports = {
   getAllActions() {
     Action.find(function (err, actions) {
       if (err) throw err;
@@ -55,5 +55,3 @@ let exportedMethods = {
     );
   }
 };
-
-module.exports = exportedMethods;
