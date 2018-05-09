@@ -1,14 +1,14 @@
 <section>
   <h1>Create a Bean</h1>
 
-  <form action="/bean/new" method="get" id="new-bean">
+  <form action="/bean" method="post" id="new-bean">
     <label name="bean-name">Bean Name:</label>
-    <input type="text" placeholder="Lima Bean" name="bean-name" required>
-  </br>
+    <input type="text" placeholder="Lima Bean" name="name" required>
+    <br>
     <label name="description">Description:</label>
-  </br>
+    <br>
     <textarea name="description" placeholder="The best bean in all of the lands" name="description"></textarea>
-  </br>
-    <button type="submit">Bean</button>
+    <br>
+    <button type="submit">Create</button>
   </form>
 </section>
