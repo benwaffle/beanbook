@@ -8,17 +8,15 @@ module.exports = {
   getBeanById(_id) {
     return Bean.findOne({ _id }).exec();
   },
-  addBean(creatorId, title, type, description) {
+  addBean(creatorId, title, description) {
     if (!creatorId) throw "There must be a creator for this bean";
     if (!title) throw "Title cannot be blank";
-    if (!type) throw "Type cannot be blank";
     if (!description) throw "Description cannot be blank";
     
     const newBean = new Bean({
       creatorId,
       title,
       _id: uuid(),
-      type,
       description,
       comments: [],
       timestamp: new Date().toISOString()
