@@ -22,7 +22,7 @@ module.exports = {
       timestamp: new Date().toISOString()
     });
 
-    return newBean.save().exec();
+    return newBean.save();
   },
   removeBean(_id) {
     return Bean.remove({ _id }).exec()
