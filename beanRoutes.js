@@ -3,6 +3,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     console.log("POST /bean");
+
 });
 
 router.put("/:id", async (req, res) => {
@@ -11,6 +12,7 @@ router.put("/:id", async (req, res) => {
 
 router.get("/new", async (req, res) => {
     console.log("GET /bean/new");
+    res.render("create");
 });
 
 router.get("/:id", async (req, res) => {
@@ -31,6 +33,7 @@ router.delete("/:id", async (req, res) => {
 
 router.post("/search", async (req, res) => {
     console.log("POST /bean/search");
+    res.send("search");
 });
 
 module.exports = router;
