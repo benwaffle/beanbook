@@ -55,7 +55,6 @@ app.post("/login", async (req, res) => {
     
     if (await bcrypt.compare(password, user.passwordHash)) {
       req.session.user = user._id;
-      
       res.redirect('/');
     } else {
       throw 'bad';
@@ -76,7 +75,21 @@ app.get("/signup", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  console.log("POST /signup");
+  const { username, password } = req.body;
+  
+  if (typeof username !== 'string' || typeof password !== 'string') {
+    throw new Error('invalid params for /signup');
+  }
+
+  try {
+    const passwordHash = await bcrypt.hash(password, 12);
+    await users.addUser(username, passwordHash);
+    res.redirect('/');
+  } catch (e) {
+    res.render('index', {
+      error: e
+    });
+  }
 });
 
 app.use("/bean", require("./beanRoutes"));
