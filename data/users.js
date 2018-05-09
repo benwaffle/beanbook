@@ -29,7 +29,7 @@ module.exports = {
   updateUser(_id, firstName, lastName, password) {
     const updatedUser = {
       firstName,
-      lastNam,
+      lastName,
       password
     };
     return User.findOneAndUpdate({ _id }, updatedUser).exec()
