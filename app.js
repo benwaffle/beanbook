@@ -1,11 +1,8 @@
-// We first require our express package
 const express = require("express");
 const bodyParser = require("body-parser");
 
-// We create our express instance:
 const app = express();
 
-// Tell node where our static content is stored
 app.use(require('morgan')('dev'));
 app.use(express.static('/public'));
 
@@ -42,7 +39,6 @@ app.use("*", (req, res) => {
     res.status(404).json({error: "Not found"});
 });
 
-// We can now navigate to localhost:3000
 app.listen(3000, function() {
   console.log(
     "Your server is now listening on port 3000! Navigate to http://localhost:3000 to access it"
