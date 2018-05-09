@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const auth = require('./middleware');
-
 const { beans } = require('./data');
 
 router.post("/", auth, async (req, res) => {
@@ -11,7 +10,16 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
-  console.log("PUT /bean/:id");
+  const { _id, creatorId, title, description } = req.body;
+  try {
+    await beans.updateBean(_id, creatorId, title, description);
+    res.redirect(`/bean/${_id}`);
+  } catch (e) {
+    res.render('viewbean', {
+      bean: await beans.getBeanById(_id),
+      error: e
+    });
+  }
 });
 
 router.get("/new", auth, async (req, res) => {

@@ -27,11 +27,10 @@ module.exports = {
   removeBean(_id) {
     return Bean.remove({ _id }).exec()
   },
-  updateBean(_id, creatorId, title, type, description) {
+  updateBean(_id, creatorId, title, description) {
     const updatedBean = {
       creatorId,
       title,
-      type,
       description,
     };
     return Bean.findOneAndUpdate({ _id }, updatedBean).exec()
