@@ -18,8 +18,13 @@
       </form>
     </nav>
   </header>
-    <main>
-        {{{body}}}
-    </main>
+  {#if error}
+  <div class="notification is-danger">
+    {error}
+  </div>
+  {/if}
+  <main>
+    {{{body}}}
+  </main>
 </body>
 </html>
