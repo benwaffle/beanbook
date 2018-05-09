@@ -8,7 +8,7 @@ module.exports = {
   getUserById(_id) {
     return User.findOne({ _id }).exec();
   },
-  addUser(firstName, lastName, password) {
+  addUser(_id, firstName, lastName, passwordHash) {
     if (!firstName) throw "First name cannot be blank";
     if (!lastName) throw "Last name cannot be blank";
     if (!passwordHash) throw "Password hash cannot be blank";
@@ -16,8 +16,8 @@ module.exports = {
     const newUser = new User({
       firstName,
       lastName,
-      _id: uuid(),
-      password,
+      _id,
+      passwordHash,
       timestamp: new Date().toISOString()
     });
 
@@ -26,11 +26,11 @@ module.exports = {
   removeUser(_id) {
     return User.remove({ _id }).exec()
   },
-  updateUser(_id, firstName, lastName, password) {
+  updateUser(_id, firstName, lastName, passwordHash) {
     const updatedUser = {
       firstName,
       lastName,
-      password
+      passwordHash
     };
     return User.findOneAndUpdate({ _id }, updatedUser).exec()
   }
