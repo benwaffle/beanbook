@@ -23,7 +23,7 @@ const beanSchema = new Schema({
 
 const userSchema = new Schema({
   _id: String,
-  password: String,
+  passwordHash: String,
   firstName: String,
   lastName: String,
   timestamp: Date
