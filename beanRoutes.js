@@ -28,7 +28,12 @@ router.get("/new", auth, async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  console.log("GET /bean/:id");
+  try {
+    const bean = await beans.getBeanById(req.params.id);
+    res.render("viewbean", { bean });
+  } catch (e) {
+    res.render('index', { error: e });
+  }
 });
 
 router.post("/vote/:rating", auth, async (req, res) => {
