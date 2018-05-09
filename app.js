@@ -77,4 +77,4 @@ db.then(() => {
       "Your server is now listening on port 3000! Navigate to http://localhost:3000 to access it"
     );
   });
-});
+}).catch((err) => console.log('cannot connect to database', err));
