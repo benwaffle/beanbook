@@ -10,17 +10,17 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-    const { _id, creatorId, title, description } = req.body;
-    try {
-      await beans.updateBean(_id, creatorId, title, description);
-    } catch (e) {
+  const { _id, creatorId, title, description } = req.body;
+  try {
+    await beans.updateBean(_id, creatorId, title, description);
+  } catch (e) {
     res.render('/', {
       error: e
     });
   }
 });
 
-router.get("/new", auth, async (req, res) => {
+router.get("/new", async (req, res) => {
   console.log("GET /bean/new");
   res.render("create");
 });
@@ -29,15 +29,15 @@ router.get("/:id", async (req, res) => {
   console.log("GET /bean/:id");
 });
 
-router.post("/vote/:rating", auth, async (req, res) => {
+router.post("/vote/:rating", async (req, res) => {
   console.log("POST /bean/vote/:rating");
 });
 
-router.post("/comments", auth, async (req, res) => {
-  console.log("POST /bean/comments");
+router.post("/comments", async (req, res) => {
+  console.log("GET /bean/comments");
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   console.log("DELETE /bean/:id");
 });
 
