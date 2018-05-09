@@ -3,55 +3,37 @@ const uuid = require("uuid/v4");
 
 module.exports = {
   getAllActions() {
-    Action.find(function (err, actions) {
-      if (err) throw err;
-      return actions;
-    });
+    return Action.find().exec();
   },
-  getActionById(id) {
-    Action.find({ _id: id }, 
-      function (err, action) {
-        if (err) throw err;
-        return action;
-      }
-    );
+  getActionById(_id) {
+    return Action.findOne({ _id }).exec();
   },
-  addAction(userId, actionType, beanId, commentId) {
-    if (!userId) throw "There must be a creator for this action";
+  addAction(user, actionType, bean, comment) {
+    if (!user) throw "There must be a creator for this action";
     if (!actionType) throw "Action type cannot be blank";
-    if (!beanId) throw "Bean cannot be blank";
+    if (!bean) throw "Bean cannot be blank";
 
-    let newAction = new Action({
-      user: userId,
-      actionType: actionType,
+    const newAction = new Action({
+      user,
+      actionType,
       _id: uuid(),
-      bean: beanId,
-      comment: commentId,
+      bean,
+      comment,
       timestamp: new Date().toISOString()
     });
 
-    newAction.save(function (err, action) {
-      if (err) throw err;
-      return action;
-    });
+    return newAction.save().exec();
   },
-  removeAction(id) {
-    Action.remove({ _id: id }, function (err) {
-      if (err) throw err;
-    });
+  removeAction(_id) {
+    return Action.remove({ _id }).exec()
   },
-  updateAction(id, userId, actionType, beanId, commentId) {
-    let updatedAction = {
-      user: userId,
-      actionType: actionType,
-      bean: beanId,
-      comment: commentId
+  updateAction(_id, user, actionType, bean, comment) {
+    const updatedAction = {
+      user,
+      actionType,
+      bean,
+      comment
     };
-    Action.findOneAndUpdate({ _id: id }, updatedAction, 
-      function (err, action) {
-        if (err) throw err;
-        return action;
-      }
-    );
+    return Action.findOneAndUpdate({ _id }, updatedAction).exec()
   }
 };
