@@ -17,7 +17,7 @@ module.exports = {
       timestamp: new Date().toISOString()
     });
 
-    return newUser.save().exec();
+    return newUser.save();
   },
   removeUser(_id) {
     return User.remove({ _id }).exec()
