@@ -3,53 +3,35 @@ const uuid = require("uuid/v4");
 
 module.exports = {
   getAllUsers() {
-    User.find(function (err, users) {
-      if (err) throw err;
-      return users;
-    });
+    return User.find().exec();
   },
-  getUserById(id) {
-    User.find({ _id: id }, 
-      function (err, user) {
-        if (err) throw err;
-        return user;
-      }
-    );
+  getUserById(_id) {
+    return User.findOne({ _id }).exec();
   },
-  addUser(firstName, lastName, passwordHash) {
+  addUser(firstName, lastName, password) {
     if (!firstName) throw "First name cannot be blank";
     if (!lastName) throw "Last name cannot be blank";
     if (!passwordHash) throw "Password hash cannot be blank";
     
-    let newUser = new User({
-      firstName: firstName,
-      lastName: lastName,
+    const newUser = new User({
+      firstName,
+      lastName,
       _id: uuid(),
-      password: passwordHash,
+      password,
       timestamp: new Date().toISOString()
     });
 
-    newUser.save(function (err, user) {
-      if (err) throw err;
-      return user;
-    });
+    return newUser.save().exec();
   },
-  removeUser(id) {
-    User.remove({ _id: id }, function (err) {
-      if (err) throw err;
-    });
+  removeUser(_id) {
+    return User.remove({ _id }).exec()
   },
-  updateUser(id, firstName, lastName, passwordHash) {
-    let updatedUser = {
-      firstName: firstName,
-      lastName: lastName,
-      password: passwordHash
+  updateUser(_id, firstName, lastName, password) {
+    const updatedUser = {
+      firstName,
+      lastName,
+      password
     };
-    User.findOneAndUpdate({ _id: id }, updatedUser, 
-      function (err, user) {
-        if (err) throw err;
-        return user;
-      }
-    );
+    return User.findOneAndUpdate({ _id }, updatedUser).exec()
   }
 };
