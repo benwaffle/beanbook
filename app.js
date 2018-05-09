@@ -24,13 +24,6 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-function auth(req, res, next) {
-  if (typeof req.session.user === 'string')
-    next()
-  else
-    res.status(401).json({error: 'not logged in'})
-}
-
 app.get("/", async (req, res) => {
   console.log("GET /");
   if (typeof req.session.user === 'string')
