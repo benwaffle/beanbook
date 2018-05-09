@@ -12,7 +12,7 @@ router.put("/:id", async (req, res) => {
 
 router.get("/new", async (req, res) => {
     console.log("GET /bean/new");
-    res.render("create", {});
+    res.render("create");
 });
 
 router.get("/:id", async (req, res) => {
