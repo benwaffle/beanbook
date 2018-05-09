@@ -16,7 +16,7 @@ router.put("/:id", async (req, res) => {
     res.redirect(`/bean/${_id}`);
   } catch (e) {
     res.render('viewbean', {
-      bean: beans.getBeanById(_id),
+      bean: await beans.getBeanById(_id),
       error: e
     });
   }
