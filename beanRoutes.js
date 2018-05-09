@@ -29,13 +29,11 @@ router.get("/new", auth, async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-      const bean = await beans.getBeanById(id);
+    const bean = await beans.getBeanById(req.params.id);
+    res.render("viewbean", { bean });
   } catch (e) {
-      res.render("???")
+    res.render('index', { error: e });
   }
-
-  res.render("viewbean", { bean: bean })
-  console.log("GET /bean/:id");
 });
 
 router.post("/vote/:rating", auth, async (req, res) => {
