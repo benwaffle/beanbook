@@ -2,45 +2,14 @@
   <h1>{{title}}</h1>
   <h2>To enter the land of legumes, pls give us ur things</h2>
 
-<div class="columns">
-  <form action="/signup" method="post" id="signup-form">
-  <div class="field">
-    <p class="control has-icons-left has-icons-right">
-      <div class="column is-9">
-        <input class="input" type="text" placeholder="Username" name="username">
-      </div>
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
-    </p>
-  </div>
-</div>
+  <form action="/signup" method="post" id=signup-form>
+    <label="username">Username:</label>
+    <input type="text" placeholder="Username" name="username" required>
+    <br/>
+    <label="password">Password:</label>
+    <input type="password" placeholder="Enter password" name="password" required>
 
-<div class="columns">
-  <div class="field">
-    <p class="control has-icons-left">
-      <div class="column is-9">
-        <input class="input" type="password" placeholder="Password" name="password">
-      </div>
-      <span class="icon is-small is-left">
-        <i class="fas fa-lock"></i>
-      </span>
-    </p>
-  </div>
-</div>
-
-<div class="field">
-  <p class="control">
-    <button type="submit" class="button is-success">
-      Sign Up
-    </button>
-  </p>
-</div>
-</form>
-
-
+    <button type="submit">Sign Up</button>
+  </form>
 
 </section>
