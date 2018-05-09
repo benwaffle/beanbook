@@ -8,6 +8,12 @@ app.use(express.static('/public'));
 
 app.set('view engine', 'hbs'); // handlebars
 
+app.use(require('express-session')({
+    secret: 'kitten',
+    resave: false,
+    saveUninitialized: true
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
