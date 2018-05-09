@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { beans } = require('./data');
 
 router.post("/", async (req, res) => {
     console.log("POST /bean");
@@ -16,6 +17,13 @@ router.get("/new", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+    try {
+        const bean = await beans.getBeanById(id);
+    } catch (e) {
+        res.render("???")
+    }
+
+    res.render("viewbean", { bean: bean })
     console.log("GET /bean/:id");
 });
 

@@ -1,0 +1,21 @@
+<section>
+  <h1>Bean: {{bean.title}}</h1>
+
+  <h2>Created by {{bean.creatorId}} at {{bean.timestamp}}</h2>
+  <p>
+      {{bean.description}}
+  </p>
+  <img src={{bean.imageUrl}} alt="Bean">
+
+  <ul>
+      {{#each bean.comments}}
+      <h3>Poster: {{this.posterId}}</h3>
+      <p>
+          {{this.comment}}
+      </p>
+      <div>
+          {{this.rating}}
+      </div>
+      {{/each}}
+  </ul>
+</section>
