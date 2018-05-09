@@ -10,9 +10,9 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-    const { _id, creatorId, title, type, description } = req.body;
+    const { _id, creatorId, title, description } = req.body;
     try {
-      await beans.updateBean(_id, creatorId, title, type, description);
+      await beans.updateBean(_id, creatorId, title, description);
     } catch (e) {
     res.render('/', {
       error: e
