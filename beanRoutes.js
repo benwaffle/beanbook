@@ -1,19 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const auth = require('./middleware');
 
 const { beans } = require('./data');
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { name, description } = req.body;
   const bean = await beans.addBean(req.session.user, name, description);
   res.redirect(`/bean/${bean._id}`);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   console.log("PUT /bean/:id");
 });
 
-router.get("/new", async (req, res) => {
+router.get("/new", auth, async (req, res) => {
   console.log("GET /bean/new");
   res.render("create");
 });
@@ -22,15 +23,15 @@ router.get("/:id", async (req, res) => {
   console.log("GET /bean/:id");
 });
 
-router.post("/vote/:rating", async (req, res) => {
+router.post("/vote/:rating", auth, async (req, res) => {
   console.log("POST /bean/vote/:rating");
 });
 
-router.post("/comments", async (req, res) => {
-  console.log("GET /bean/comments");
+router.post("/comments", auth, async (req, res) => {
+  console.log("POST /bean/comments");
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   console.log("DELETE /bean/:id");
 });
 
