@@ -18,11 +18,12 @@
       </form>
     </nav>
   </header>
-  {#if error}
+  {{#if error}}
   <div class="notification is-danger">
-    {error}
+    <button class="delete" onclick="this.parentElement.remove()"></button>
+    {{error}}
   </div>
-  {/if}
+  {{/if}}
   <main>
     {{{body}}}
   </main>
