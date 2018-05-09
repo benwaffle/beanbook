@@ -23,10 +23,23 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+function auth(req, res, next) {
+  if (typeof req.session.user === 'string')
+    next()
+  else
+    res.status(401).json({error: 'not logged in'})
+}
+
 app.get("/", async (req, res) => {
   console.log("GET /");
-  // res.render("index");
-  res.send('ok');
+  if (typeof req.session.user === 'string')
+    res.render('???');
+  else
+    res.redirect('/login')
+});
+
+app.get('/login', async (req, res) => {
+  res.render('index');
 });
 
 app.post("/login", async (req, res) => {
@@ -47,7 +60,7 @@ app.post("/login", async (req, res) => {
       throw 'bad';
     }
   } catch (e) {
-    res.render('/', {
+    res.render('index', {
       error: 'Invalid username or password'
     });
   }
