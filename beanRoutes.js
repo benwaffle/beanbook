@@ -13,9 +13,9 @@ router.put("/:id", async (req, res) => {
   const { _id, creatorId, title, description } = req.body;
   try {
     await beans.updateBean(_id, creatorId, title, description);
-    res.redirect(`/bean/${bean._id}`);
+    res.redirect(`/bean/${_id}`);
   } catch (e) {
-    res.render('/', {
+    res.render(`/bean/${_id}`, {
       error: e
     });
   }
