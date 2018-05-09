@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">BeanBook</a> |
+      <a href="/bean">Beans</a> |
+      <a href="#">Users</a> |
+      <a href="/signup">Sign Up</a>
+      <form action="/bean/search" method="post">
+        <input type="text" placeholder="Search...">
+        <button type="submit" name="search">Submit</button>
+      </form>
+    </nav>
+  </header>
+    <main>
+        {{{body}}}
+    </main>
+</body>
+</html>

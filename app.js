@@ -1,13 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const exphbs = require("express-handlebars");
 
 const app = express();
 
 app.use(require('morgan')('dev'));
 app.use(express.static('/public'));
 
+
 app.set('view engine', 'hbs'); // handlebars
 
+app.set('view options', { layout: 'layouts/main' });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -15,8 +18,7 @@ app.use(bodyParser.urlencoded({
 
 app.get("/", async (req, res) => {
     console.log("GET /");
-    // res.render("index");
-    res.send('ok');
+    res.render("index", {title: "BeanBook"})
 });
 
 app.post("/login", async (req, res) => {
@@ -29,6 +31,7 @@ app.get("/user/:id", async (req, res) => {
 
 app.get("/signup", async (req, res) => {
     console.log("GET /signup");
+    res.render("signup", {title: "Sign Up"});
 });
 
 app.post("/signup", async (req, res) => {
