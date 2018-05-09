@@ -82,8 +82,8 @@ app.post("/signup", async (req, res) => {
   }
 
   try {
-    await bcrypt.hash(password);
-    await users.addUser(username, password);
+    let passwordHash = await bcrypt.hash(password, 12);
+    await users.addUser(username, passwordHash);
     res.redirect('/');
   } catch (e) {
     res.render('index', {
