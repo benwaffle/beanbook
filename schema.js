@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { mongoose } = require('./connection');
+const { Schema } = mongoose;
 
 const actionSchema = new Schema({
   _id: String,
@@ -23,7 +23,7 @@ const beanSchema = new Schema({
 
 const userSchema = new Schema({
   _id: String,
-  password: String,
+  passwordHash: String,
   firstName: String,
   lastName: String,
   timestamp: Date
