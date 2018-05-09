@@ -6,8 +6,10 @@ const bodyParser = require("body-parser");
 const app = express();
 
 // Tell node where our static content is stored
-app.use("/public", express.static(__dirname + "/public"));
-app.use(bodyParser.json()); // for parsing application/json
+app.use(express.static('public'))
+app.use(require('morgan')('dev'));
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
