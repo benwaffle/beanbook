@@ -1,19 +1,19 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let actionSchema = new Schema({
-  _id:  String,
+const actionSchema = new Schema({
+  _id: String,
   user: String,
-  timestamp:   Date,
+  timestamp: Date,
   actionType: String,
   bean: String,
   comment: String
 });
 
-let beanSchema = new Schema({
-  _id:  String,
+const beanSchema = new Schema({
+  _id: String,
   creatorId: String,
-  timestamp:   Date,
+  timestamp: Date,
   title: String,
   type: String,
   description: String,
@@ -21,14 +21,20 @@ let beanSchema = new Schema({
   comments: [{ posterId: String, comment: String, rating: Number }]
 });
 
-let userSchema = new Schema({
-  _id:  String,
+const userSchema = new Schema({
+  _id: String,
   password: String,
-  firstName:   String,
+  firstName: String,
   lastName: String,
   timestamp: Date
 });
 
-let Bean = mongoose.model('Bean', beanSchema);
-let User = mongoose.model('User', userSchema);
-let Action = mongoose.model('Action', actionSchema);
+const Bean = mongoose.model('Bean', beanSchema);
+const User = mongoose.model('User', userSchema);
+const Action = mongoose.model('Action', actionSchema);
+
+module.exports = {
+  Action,
+  Bean,
+  User
+};
