@@ -6,6 +6,8 @@ const app = express();
 app.use(require('morgan')('dev'));
 app.use(express.static('/public'));
 
+app.set('view engine', 'hbs'); // handlebars
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
