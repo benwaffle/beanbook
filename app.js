@@ -36,8 +36,9 @@ app.get("/", async (req, res) => {
     res.render('beans', {
       beans: await beans.getAllBeans()
     });
-  } else
+  } else {
     res.redirect('/login');
+  }
 });
 
 app.get('/login', async (req, res) => {

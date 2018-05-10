@@ -5,8 +5,16 @@ const { beans } = require('./data');
 
 router.post("/", auth, async (req, res) => {
   const { name, description } = req.body;
-  const bean = await beans.addBean(req.session.user, name, description);
-  res.redirect(`/bean/${bean._id}`);
+  try {
+    const bean = await beans.addBean(req.session.user, name, description);
+    res.redirect(`/bean/${bean._id}`);
+  } catch (e) {
+    res.render('create', {
+      error: e,
+      name,
+      description
+    })
+  }
 });
 
 router.put("/:id", auth, async (req, res) => {
