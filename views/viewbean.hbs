@@ -5,24 +5,60 @@
       <img src="{{imageUrl}}" />
     </div>
     <div class="card-content">
-      <div class="media">
-        <div class="media-content">
-          <p class="title">{{title}}</p>
-          <p class="subtitle">@
-            <a href="/user/{{creatorId}}">{{creatorId}}</a>
-          </p>
+      <form action="" method="post" id="editform">
+        <input type="hidden" name="_id" value="{{_id}}"/>
+        <div class="media">
+          <div class="media-content">
+            <p class="title" id="title">{{title}}</p>
+            <p class="subtitle">@
+              <a href="/user/{{creatorId}}">{{creatorId}}</a>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="content">
-        {{description}}
-        <br>
-        <time>{{moment timestamp}}</time>
-      </div>
-      {{#if ../editable}}
-      <a href="#" class="button">Edit</a>
-      <a href="/bean/delete/{{_id}}" class="button is-danger" onclick="return confirm('Are you sure you want to delete this bean?')">Delete</a>
-      {{/if}}
+        <div class="content" id="desc">
+          <span>{{description}}</span>
+          <br>
+          <time>{{moment timestamp}}</time>
+        </div>
+        {{#if ../editable}}
+        <a class="button" id="edit">Edit</button>
+        <a href="/bean/delete/{{_id}}" class="button is-danger" onclick="return confirm('Are you sure you want to delete this bean?')">Delete</a>
+        {{/if}}
+      </form>
     </div>
   </div>
   {{/with}}
 </section>
+<script>
+  const $ = document.querySelector.bind(document);
+  const $$ = document.querySelectorAll.bind(document);
+  let editing = false;
+  document.addEventListener('DOMContentLoaded', () => {
+    $('#edit').addEventListener('click', (ev) => {
+      console.log('hey');
+      if (editing) {
+        $('#editform').submit();
+      } else {
+        editing = true;
+        $('#edit').textContent = 'Save';
+        $('#edit').type = 'submit';
+
+        const title = document.createElement('input');
+        title.classList.add('title');
+        title.name = 'title';
+        title.value = $('#title').textContent;
+        const p = $('#title').parentElement;
+        $('#title').remove();
+        p.prepend(title);
+
+        const desc = document.createElement('textarea');
+        desc.name = 'description';
+        desc.value = $('#desc > span').textContent;
+        const s = $('#desc');
+        for (const child of $$('#desc > *'))
+          child.remove();
+        s.append(desc);
+      }
+    });
+  });
+</script>
