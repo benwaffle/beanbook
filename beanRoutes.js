@@ -22,10 +22,10 @@ router.post("/", auth, upload.single('image'), async (req, res) => {
   }
 });
 
-router.put("/:id", auth, async (req, res) => {
-  const { _id, creatorId, title, description } = req.body;
+router.post("/:id", auth, async (req, res) => {
+  const { _id, title, description } = req.body;
   try {
-    await beans.updateBean(_id, creatorId, title, description);
+    await beans.updateBean(_id, title, description);
     res.redirect(`/bean/${_id}`);
   } catch (e) {
     const bean = await beans.getBeanById(_id);
@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
       editable: bean.creatorId === req.session.user
     });
   } catch (e) {
-    res.render('index', { error: e });
+    res.redirect('/');
   }
 });
 

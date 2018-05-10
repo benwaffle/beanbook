@@ -28,11 +28,11 @@ module.exports = {
   removeBean(_id) {
     return Bean.remove({ _id }).exec()
   },
-  updateBean(_id, creatorId, title, description) {
+  updateBean(_id, title, description) {
     const updatedBean = {
-      creatorId,
       title,
       description,
+      timestamp: new Date().toISOString()
     };
     return Bean.findOneAndUpdate({ _id }, updatedBean).exec()
   },
