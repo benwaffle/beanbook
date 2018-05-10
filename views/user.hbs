@@ -3,9 +3,13 @@
   <div class="card">
     <div class="card-content">
       <p class="title">@{{_id}}</p>
-      <ul>
+      <ul class="content">
         {{#each ../actions}} {{#with this}}
-        <li>@{{user}} {{actionType}} <a href="/bean/{{beanId}}">{{beanName}}</a> <time>{{moment timestamp}}</time></li>
+        <li>@{{user}} {{actionType}}
+        {{#if comment}}
+        <blockquote>{{comment}}</blockquote> on
+        {{/if}}
+        <a href="/bean/{{beanId}}">{{beanName}}</a> <time>{{moment timestamp}}</time></li>
         {{/with}} {{/each}}
       </ul>
     </div>
