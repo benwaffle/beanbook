@@ -1,0 +1,18 @@
+<section class="container" style="margin-top: 20px">
+  {{#with user}}
+  <div class="card">
+    <div class="card-content">
+      <p class="title">@{{_id}}</p>
+      <ul class="content">
+        {{#each ../actions}} {{#with this}}
+        <li>@{{user}} {{actionType}}
+        {{#if comment}}
+        <blockquote>{{comment}}</blockquote> on
+        {{/if}}
+        <a href="/bean/{{beanId}}">{{beanName}}</a> <time>{{moment timestamp}}</time></li>
+        {{/with}} {{/each}}
+      </ul>
+    </div>
+  </div>
+  {{/with}}
+</section>

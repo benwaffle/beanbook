@@ -1,5 +1,6 @@
 const { Bean } = require('../schema')
 const uuid = require("uuid/v4");
+const actions = require('./actions');
 
 module.exports = {
   getAllBeans() {
@@ -23,17 +24,22 @@ module.exports = {
       timestamp: new Date().toISOString()
     });
 
+    actions.addAction(creatorId, 'added', newBean._id, title, null);
+
     return newBean.save();
   },
   removeBean(_id) {
     return Bean.remove({ _id }).exec()
   },
-  updateBean(_id, title, description) {
+  updateBean(_id, creatorId, title, description) {
     const updatedBean = {
       title,
       description,
       timestamp: new Date().toISOString()
     };
+
+    actions.addAction(creatorId, 'updated', _id, description, null);
+
     return Bean.findOneAndUpdate({ _id }, updatedBean).exec()
   },
   getCommentById(id) {

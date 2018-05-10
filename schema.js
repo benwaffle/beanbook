@@ -2,11 +2,11 @@ const { mongoose } = require('./connection');
 const { Schema } = mongoose;
 
 const actionSchema = new Schema({
-  _id: String,
   user: String,
   timestamp: Date,
   actionType: String,
-  bean: String,
+  beanId: String,
+  beanName: String,
   comment: String
 });
 
