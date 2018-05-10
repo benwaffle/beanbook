@@ -94,7 +94,7 @@ app.post("/signup", async (req, res) => {
     req.session.user = username;
     res.redirect('/');
   } catch (e) {
-    res.render('login', {
+    res.render('signup', {
       error: e,
       loggedIn: false
     });
