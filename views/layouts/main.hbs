@@ -3,27 +3,75 @@
 <head>
     <meta charset="utf-8">
     <title>{{title}}</title>
+
     <link rel="stylesheet" href="https://unpkg.com/bulma/css/bulma.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+
+              // Get the target from the "data-target" attribute
+              const target = $el.dataset.target;
+              const $target = document.getElementById(target);
+
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
 </head>
 <body>
   <header>
-    <nav>
-      <a href="/">BeanBook</a> |
-      <a href="/bean/new">Create Bean</a> |
-      <a href="#">Users</a> |
-      <a href="/signup">Sign Up</a>
-      <form action="/bean/search" method="post">
-        <input type="text" placeholder="Search...">
-        <button type="submit" name="search">Submit</button>
-      </form>
+    <nav class="navbar is-warning">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">BeanBook</a>
+        <a role="button" class="navbar-burger" data-target="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+      </div>
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/bean/new">Create Bean</a>
+          <a class="navbar-item" href="/signup">Sign Up</a>
+          <form class="navbar-item" action="/bean/search" method="post">
+            <div class="field has-addons">
+              <div class="control">
+                <input class="input" type="text" placeholder="Search...">
+              </div>
+              <div class="control">
+                <a class="button is-success">
+                  Search
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
     </nav>
   </header>
+
   {{#if error}}
   <div class="notification is-danger">
     <button class="delete" onclick="this.parentElement.remove()"></button>
     {{error}}
   </div>
   {{/if}}
+
   <main>
     {{{body}}}
   </main>

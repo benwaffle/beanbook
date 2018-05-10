@@ -4,14 +4,15 @@ const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
 const { db } = require('./connection')
-const { users } = require('./data');
+const { users, beans } = require('./data');
 const app = express();
 
 app.use(require('morgan')('dev'));
 app.use(express.static('/public'));
 
+app.engine('hbs', require('exphbs'));
 app.set('view engine', 'hbs'); // handlebars
-app.set('view options', { layout: 'layouts/main' });
+app.set('view options', { layout: 'main' });
 
 app.use(require('express-session')({
   secret: 'kitten',
@@ -26,14 +27,16 @@ app.use(bodyParser.urlencoded({
 
 app.get("/", async (req, res) => {
   console.log("GET /");
-  if (typeof req.session.user === 'string')
-    res.render('???');
-  else
-    res.redirect('/login')
+  if (typeof req.session.user === 'string') {
+    res.render('beans', {
+      beans: await beans.getAllBeans()
+    });
+  } else
+    res.redirect('/login');
 });
 
 app.get('/login', async (req, res) => {
-  res.render('index', {title: 'BeanBook'});
+  res.render('login', {title: 'BeanBook — Login'});
 });
 
 app.post("/login", async (req, res) => {
@@ -53,7 +56,7 @@ app.post("/login", async (req, res) => {
       throw 'bad';
     }
   } catch (e) {
-    res.render('index', {
+    res.render('login', {
       error: 'Invalid username or password'
     });
   }
