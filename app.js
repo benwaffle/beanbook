@@ -28,13 +28,8 @@ app.use(bodyParser.urlencoded({
 app.get("/", async (req, res) => {
   console.log("GET /");
   if (typeof req.session.user === 'string') {
-    let bs = await beans.getAllBeans();
-    for (let b of bs) {
-      b.iso = b.timestamp.toISOString();
-    }
-    console.log(bs);
     res.render('beans', {
-      beans: bs
+      beans: await beans.getAllBeans()
     });
   } else
     res.redirect('/login');
