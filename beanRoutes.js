@@ -58,7 +58,15 @@ router.post("/vote/:rating", auth, async (req, res) => {
 });
 
 router.post("/comments", auth, async (req, res) => {
-  console.log("POST /bean/comments");
+  const {comment, rating, _id} = req.body;
+  const user = req.session.user;
+  try{
+    const bean = await beans.getBeanById(_id);
+    await beans.addComment(_id, user, comment, rating);
+    //redirect to viewbnean but its broken
+  }catch(e){
+    console.log(e);
+  }
 });
 
 router.get("/delete/:id", auth, async (req, res) => {

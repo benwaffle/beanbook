@@ -27,6 +27,34 @@
       </form>
     </div>
   </div>
+
+  <article class="media" style="margin-top:20px">
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <form id="comment-form" method="post" action="/bean/comments">
+        <textarea class="textarea" name="comment" placeholder="Add a comment..."></textarea>
+        <label>Rating (1-5):</label><input type="number" name="rating">
+        <input type="hidden" name="_id" value="{{_id}}"/>
+      </p>
+    </div>
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <button type="submit">Submit
+        </button>
+        </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+</article>
+
+<article>
+  <ul id="comments">
+  </ul>
+</article>
+
   {{/with}}
 </section>
 <script>

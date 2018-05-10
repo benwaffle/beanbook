@@ -12,7 +12,7 @@ module.exports = {
     if (!creatorId) throw "There must be a creator for this bean";
     if (!title) throw "Title cannot be blank";
     if (!description) throw "Description cannot be blank";
-    
+
     const newBean = new Bean({
       creatorId,
       title,
@@ -39,8 +39,20 @@ module.exports = {
   getCommentById(id) {
     //TODO
   },
-  addComment(beanId, userId, comment) {
-    //TODO
+  addComment(beanId, userId, comment, rating) {
+    if(!beanId) throw "There must be a beanId";
+    if(!userId) throw "There must be a creator for this bean";
+    if(!comment) throw "Comment must not be blank";
+    if(!rating) throw "Please rate this bean";
+
+    const comment = {
+      userId,
+      comment,
+      rating
+    };
+
+    const beanComments = Bean.getBeanById(beanId).comments;
+    comments.append(comment);
   },
   removeComment(id) {
     //TODO
