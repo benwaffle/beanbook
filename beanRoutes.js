@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const auth = require('./middleware');
 const { beans } = require('./data');
-const { Bean } = require('./schema');
 
 const upload = require('multer')({
   dest: 'public/images/'
@@ -27,13 +26,14 @@ router.post("/search", async (req, res) => {
   const { searchTerm } = req.body;
   console.log(`searchTerm: ${searchTerm}`);
   try {
-    const results = await beans.searchBeans(searchTerm);
-    console.log(results);
     res.render('beans', {
-      beans: results
+      beans: await beans.searchBeans(searchTerm);
     });
   }
   catch (e) {
+    res.render('beans', {
+      error: e;
+    })
     console.log(e);
   }
 });
