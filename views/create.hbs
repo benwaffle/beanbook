@@ -1,16 +1,40 @@
 <section>
-  <h1>Create a Bean</h1>
+  <div class="hero">
+    <div class="hero-body">
+      <h1 class="title">Create a Bean</h1>
+    </div>
+  </div>
 
-  <form action="/bean" method="post" id="new-bean">
-    <label name="bean-name">Bean Name:</label>
-    <input type="text" placeholder="Lima Bean" name="name" required>
-    <br>
-    <label name="description">Description:</label>
-    <br>
-    <textarea name="description" placeholder="The best bean in all of the lands" name="description"></textarea>
-    <br>
-    <label name="imgURL">Image URL:</label>
-    <input type="text">
-    <button type="submit">Create</button>
-  </form>
+
+  <div class="container">
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <form action="/bean" method="post" enctype="multipart/form-data" id="new-bean">
+          <div class="field">
+            <label class="label" for="title">Title</label>
+            <div class="control">
+              <input class="input" name="name" value="{{name}}" id="title"/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="desc" class="label">Description</label>
+            <div class="control">
+              <input class="input" name="description" value="{{description}}" id="desc"/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="Image" class="label">Image</label>
+            <div class="control">
+              <input type="file" name="image" />
+            </div>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button class="button is-primary" type="submit">Create</button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>

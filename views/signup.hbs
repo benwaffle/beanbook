@@ -1,15 +1,37 @@
 <section>
-  <h1>{{title}}</h1>
-  <h2>To enter the land of legumes, pls give us ur things</h2>
-
-  <form action="/signup" method="post" id=signup-form>
-    <label="username">Username:</label>
-    <input type="text" placeholder="Username" name="username" required>
-    <br/>
-    <label="password">Password:</label>
-    <input type="password" placeholder="Enter password" name="password" required>
-
-    <button type="submit">Sign Up</button>
-  </form>
-
+  <div class="hero">
+    <div class="hero-body">
+      <h1 class="title">Sign Up</h1>
+      <h1 class="subtitle">Perks include beans</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <form action="/signup" method="post">
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" placeholder="username" name="username" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" placeholder="password" name="password" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button class="button is-success" type="submit">Sign Up</button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>

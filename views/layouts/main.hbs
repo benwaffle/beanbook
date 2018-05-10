@@ -45,8 +45,13 @@
       </div>
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
+          {{#if loggedIn}}
           <a class="navbar-item" href="/bean/new">Create Bean</a>
+          <a href="/logout" class="navbar-item">Logout</a>
+          {{/if}}
+          {{#unless loggedIn}}
           <a class="navbar-item" href="/signup">Sign Up</a>
+          {{/unless}}
           <form class="navbar-item" action="/bean/search" method="post">
             <div class="field has-addons">
               <div class="control">
