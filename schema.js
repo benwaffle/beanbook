@@ -2,11 +2,11 @@ const { mongoose } = require('./connection');
 const { Schema } = mongoose;
 
 const actionSchema = new Schema({
-  _id: String,
   user: String,
   timestamp: Date,
   actionType: String,
-  bean: String,
+  beanId: String,
+  beanName: String,
   comment: String
 });
 
@@ -15,11 +15,12 @@ const beanSchema = new Schema({
   creatorId: String,
   timestamp: Date,
   title: String,
-  type: String,
   description: String,
   imageUrl: String,
   comments: [{ posterId: String, comment: String, rating: Number }]
 });
+beanSchema.index({title: 'text', description: 'text', creatorId: 'text',
+                  'comments.posterId': 'text', 'comments.comment': 'text'});
 
 const userSchema = new Schema({
   _id: String,

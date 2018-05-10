@@ -22,10 +22,26 @@ router.post("/", auth, upload.single('image'), async (req, res) => {
   }
 });
 
+router.post("/search", async (req, res) => {
+  const { searchTerm } = req.body;
+  console.log(`searchTerm: ${searchTerm}`);
+  try {
+    res.render('beans', {
+      beans: await beans.searchBeans(searchTerm)
+    });
+  }
+  catch (e) {
+    res.render('beans', {
+      error: e
+    })
+    console.log(e);
+  }
+});
+
 router.post("/:id", auth, async (req, res) => {
   const { _id, title, description } = req.body;
   try {
-    await beans.updateBean(_id, title, description);
+    await beans.updateBean(_id, req.session.user, title, description);
     res.redirect(`/bean/${_id}`);
   } catch (e) {
     const bean = await beans.getBeanById(_id);
@@ -84,11 +100,6 @@ router.get("/delete/:id", auth, async (req, res) => {
       error: e
     });
   }
-});
-
-router.post("/search", async (req, res) => {
-  console.log("POST /bean/search");
-  res.send("search");
 });
 
 module.exports = router;

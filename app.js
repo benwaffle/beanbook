@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
 const { db } = require('./connection')
-const { users, beans } = require('./data');
+const { users, beans, actions } = require('./data');
 const app = express();
 
 const auth = require('./middleware')
@@ -75,7 +75,14 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/user/:id", async (req, res) => {
-  console.log("GET /user/:id");
+  try {
+    res.render('user', {
+      actions: await actions.getAllActionsForUser(req.params.id),
+      user: await users.getUserById(req.params.id)
+    });
+  } catch (e) {
+    res.redirect('/');
+  }
 });
 
 app.get("/signup", async (req, res) => {
