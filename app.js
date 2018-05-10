@@ -7,12 +7,17 @@ const { db } = require('./connection')
 const { users, beans } = require('./data');
 const app = express();
 
+const auth = require('./middleware')
+
 app.use(require('morgan')('dev'));
 app.use(express.static('/public'));
 
 app.engine('hbs', require('exphbs'));
 app.set('view engine', 'hbs'); // handlebars
-app.set('view options', { layout: 'main' });
+app.set('view options', {
+  layout: 'main',
+  loggedIn: true
+});
 
 app.use(require('express-session')({
   secret: 'kitten',
@@ -36,10 +41,10 @@ app.get("/", async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-  res.render('login', {title: 'BeanBook — Login', notLoggedIn: true});
+  res.render('login', {title: 'BeanBook — Login', loggedIn: false});
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', auth, (req, res) => {
   delete req.session.user;
   res.redirect('/login');
 });
@@ -62,7 +67,8 @@ app.post("/login", async (req, res) => {
     }
   } catch (e) {
     res.render('login', {
-      error: 'Invalid username or password'
+      error: 'Invalid username or password',
+      loggedIn: false
     });
   }
 });
@@ -72,7 +78,7 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.get("/signup", async (req, res) => {
-  res.render("signup", {title: "Sign Up", notLoggedIn: true});
+  res.render("signup", {title: "Sign Up", loggedIn: false});
 });
 
 app.post("/signup", async (req, res) => {
@@ -85,10 +91,12 @@ app.post("/signup", async (req, res) => {
   try {
     const passwordHash = await bcrypt.hash(password, 12);
     await users.addUser(username, passwordHash);
+    req.session.user = username;
     res.redirect('/');
   } catch (e) {
-    res.render('index', {
-      error: e
+    res.render('login', {
+      error: e,
+      loggedIn: false
     });
   }
 });
