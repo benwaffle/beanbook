@@ -5,7 +5,6 @@
     <title>{{title}}</title>
 
     <link rel="stylesheet" href="https://unpkg.com/bulma/css/bulma.css" />
-
 </head>
 <body>
   <header>
@@ -27,8 +26,14 @@
         </form>
       </div>
   </header>
-    <main class="section">
-        {{{body}}}
-    </main>
+  {{#if error}}
+  <div class="notification is-danger">
+    <button class="delete" onclick="this.parentElement.remove()"></button>
+    {{error}}
+  </div>
+  {{/if}}
+  <main>
+    {{{body}}}
+  </main>
 </body>
 </html>
