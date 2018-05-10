@@ -15,11 +15,11 @@ const beanSchema = new Schema({
   creatorId: String,
   timestamp: Date,
   title: String,
-  type: String,
   description: String,
   imageUrl: String,
   comments: [{ posterId: String, comment: String, rating: Number }]
 });
+beanSchema.index({title: 'text', description: 'text'});
 
 const userSchema = new Schema({
   _id: String,
