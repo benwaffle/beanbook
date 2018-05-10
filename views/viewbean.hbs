@@ -7,6 +7,7 @@
     <div class="card-content">
       <form action="" method="post" id="editform">
         <input type="hidden" name="_id" value="{{_id}}"/>
+        <input type="hidden" name="creatorId" value="{{creatorId}}"/>
         <div class="media">
           <div class="media-content">
             <p class="title" id="title">{{title}}</p>
@@ -35,7 +36,6 @@
   let editing = false;
   document.addEventListener('DOMContentLoaded', () => {
     $('#edit').addEventListener('click', (ev) => {
-      console.log('hey');
       if (editing) {
         $('#editform').submit();
       } else {
