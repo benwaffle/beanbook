@@ -3,10 +3,15 @@ const router = express.Router();
 const auth = require('./middleware');
 const { beans } = require('./data');
 
-router.post("/", auth, async (req, res) => {
+const upload = require('multer')({
+  dest: 'public/images/'
+});
+
+router.post("/", auth, upload.single('image'), async (req, res) => {
   const { name, description } = req.body;
   try {
-    const bean = await beans.addBean(req.session.user, name, description);
+    console.log(req.file);
+    const bean = await beans.addBean(req.session.user, name, description, `/images/${req.file.filename}`);
     res.redirect(`/bean/${bean._id}`);
   } catch (e) {
     res.render('create', {

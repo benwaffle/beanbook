@@ -8,7 +8,7 @@ module.exports = {
   getBeanById(_id) {
     return Bean.findOne({ _id }).exec();
   },
-  addBean(creatorId, title, description) {
+  addBean(creatorId, title, description, imageUrl) {
     if (!creatorId) throw "There must be a creator for this bean";
     if (!title) throw "Title cannot be blank";
     if (!description) throw "Description cannot be blank";
@@ -17,6 +17,7 @@ module.exports = {
       creatorId,
       title,
       _id: uuid(),
+      imageUrl,
       description,
       comments: [],
       timestamp: new Date().toISOString()

@@ -10,7 +10,7 @@ const app = express();
 const auth = require('./middleware')
 
 app.use(require('morgan')('dev'));
-app.use(express.static('/public'));
+app.use(express.static('public'));
 
 app.engine('hbs', require('exphbs'));
 app.set('view engine', 'hbs'); // handlebars
