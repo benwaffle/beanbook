@@ -27,12 +27,12 @@ router.post("/search", async (req, res) => {
   console.log(`searchTerm: ${searchTerm}`);
   try {
     res.render('beans', {
-      beans: await beans.searchBeans(searchTerm);
+      beans: await beans.searchBeans(searchTerm)
     });
   }
   catch (e) {
     res.render('beans', {
-      error: e;
+      error: e
     })
     console.log(e);
   }
