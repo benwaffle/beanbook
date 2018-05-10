@@ -36,7 +36,12 @@ app.get("/", async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-  res.render('login', {title: 'BeanBook — Login'});
+  res.render('login', {title: 'BeanBook — Login', notLoggedIn: true});
+});
+
+app.get('/logout', (req, res) => {
+  delete req.session.user;
+  res.redirect('/login');
 });
 
 app.post("/login", async (req, res) => {
@@ -67,7 +72,7 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.get("/signup", async (req, res) => {
-  res.render("signup", {title: "Sign Up"});
+  res.render("signup", {title: "Sign Up", notLoggedIn: true});
 });
 
 app.post("/signup", async (req, res) => {
