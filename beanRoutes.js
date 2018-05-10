@@ -23,22 +23,26 @@ router.put("/:id", auth, async (req, res) => {
     await beans.updateBean(_id, creatorId, title, description);
     res.redirect(`/bean/${_id}`);
   } catch (e) {
+    const bean = await beans.getBeanById(_id);
     res.render('viewbean', {
-      bean: await beans.getBeanById(_id),
+      bean,
+      editable: bean.creatorId === req.session.user,
       error: e
     });
   }
 });
 
 router.get("/new", auth, async (req, res) => {
-  console.log("GET /bean/new");
   res.render("create");
 });
 
 router.get("/:id", async (req, res) => {
   try {
     const bean = await beans.getBeanById(req.params.id);
-    res.render("viewbean", { bean });
+    res.render('viewbean', {
+      bean,
+      editable: bean.creatorId === req.session.user
+    });
   } catch (e) {
     res.render('index', { error: e });
   }
@@ -52,8 +56,21 @@ router.post("/comments", auth, async (req, res) => {
   console.log("POST /bean/comments");
 });
 
-router.delete("/:id", auth, async (req, res) => {
-  console.log("DELETE /bean/:id");
+router.get("/delete/:id", auth, async (req, res) => {
+  const { id } = req.params;
+  try {
+    if ((await beans.getBeanById(id)).creatorId !== req.session.user)
+      throw 'only the creator can delete the bean';
+    await beans.removeBean(id);
+    res.redirect('/');
+  } catch (e) {
+    const bean = await beans.getBeanById(id);
+    res.render('viewbean', {
+      bean,
+      editable: bean.creatorId === req.session.user,
+      error: e
+    });
+  }
 });
 
 router.post("/search", async (req, res) => {
