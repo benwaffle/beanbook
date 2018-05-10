@@ -3,7 +3,7 @@ const uuid = require("uuid/v4");
 
 module.exports = {
   getAllActionsForUser(user) {
-    return Action.find({ user: user }).sort({'timestamp': 'desc'}).exec();
+    return Action.find({ user }).sort({'timestamp': 'desc'}).exec();
   },
   addAction(user, actionType, beanId, beanName, comment) {
     if (!user) throw "There must be a creator for this action";

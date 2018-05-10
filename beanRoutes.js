@@ -23,9 +23,9 @@ router.post("/", auth, upload.single('image'), async (req, res) => {
 });
 
 router.post("/:id", auth, async (req, res) => {
-  const { _id, title, description, creatorId } = req.body;
+  const { _id, title, description } = req.body;
   try {
-    await beans.updateBean(_id, creatorId, title, description);
+    await beans.updateBean(_id, req.session.user, title, description);
     res.redirect(`/bean/${_id}`);
   } catch (e) {
     const bean = await beans.getBeanById(_id);
