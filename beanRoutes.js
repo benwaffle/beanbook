@@ -38,8 +38,6 @@ router.post("/search", async (req, res) => {
   }
 });
 
-router.get("")
-
 router.post("/:id", auth, async (req, res) => {
   const { _id, title, description } = req.body;
   try {
