@@ -54,4 +54,7 @@ module.exports = {
   updateComment(id, beanId, userId, comment) {
     //TODO
   },
+  searchBeans(searchTerm) {
+    return Bean.find( { $text: { $search: searchTerm } } );
+  }
 };
