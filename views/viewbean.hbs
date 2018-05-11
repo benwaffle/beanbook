@@ -10,9 +10,7 @@
         <div class="media">
           <div class="media-content">
             <p class="title" id="title">{{title}}</p>
-            <p class="subtitle">@
-              <a href="/user/{{creatorId}}">{{creatorId}}</a>
-            </p>
+            <p class="subtitle">@<a href="/user/{{creatorId}}">{{creatorId}}</a></p>
           </div>
         </div>
         <div class="content" id="desc">
@@ -27,6 +25,36 @@
       </form>
     </div>
   </div>
+  <section class="section">
+    <div class="box">
+      <p class="title">Comments</p>
+      <form action="/bean/comment" method="post" id="commentform">
+        Rating:
+        <select name="rating" class="select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <br />
+        <br />
+        <textarea name="comment" class="textarea" placeholder="I hate this bean."></textarea>
+        <input type="hidden" name="_id" value="{{_id}}" />
+        <button class="button">Post</button>
+      </form>
+    </div>
+
+    {{#each comments}} {{#with this}}
+    <div class="box content">
+      <span class="is-title">@{{posterId}}</span> — <time>{{moment timestamp}}</time>
+      <br>
+      {{comment}}
+      <br>
+      {{rating}} stars
+    </div>
+    {{/with}} {{/each}}
+  </section>
   {{/with}}
 </section>
 <script>

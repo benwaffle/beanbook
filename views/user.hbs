@@ -7,9 +7,11 @@
         {{#each ../actions}} {{#with this}}
         <li>@{{user}} {{actionType}}
         {{#if comment}}
-        <blockquote>{{comment}}</blockquote> on
-        {{/if}}
+        on <a href="/bean/{{beanId}}">{{beanName}}</a> <time>{{moment timestamp}}</time></li>
+        <blockquote>{{comment}}</blockquote>
+        {{else}}
         <a href="/bean/{{beanId}}">{{beanName}}</a> <time>{{moment timestamp}}</time></li>
+        {{/if}}
         {{/with}} {{/each}}
       </ul>
     </div>

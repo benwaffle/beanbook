@@ -38,6 +38,22 @@ router.post("/search", async (req, res) => {
   }
 });
 
+router.post("/comment", auth, async (req, res) => {
+  const { comment, rating, _id } = req.body;
+  try {
+    const bean = await beans.getBeanById(_id);
+    await beans.addComment(_id, bean.title, req.session.user, comment, rating);
+    res.redirect('/bean/' + _id)
+  } catch (e) {
+    const bean = await beans.getBeanById(_id);
+    res.render('viewbean', {
+      bean,
+      editable: bean.creatorId === req.session.user,
+      error: e
+    });
+  }
+});
+
 router.post("/:id", auth, async (req, res) => {
   const { _id, title, description } = req.body;
   try {
@@ -71,10 +87,6 @@ router.get("/:id", async (req, res) => {
 
 router.post("/vote/:rating", auth, async (req, res) => {
   console.log("POST /bean/vote/:rating");
-});
-
-router.post("/comments", auth, async (req, res) => {
-  console.log("POST /bean/comments");
 });
 
 router.get("/delete/:id", auth, async (req, res) => {
