@@ -25,6 +25,29 @@
         <a href="/bean/delete/{{_id}}" class="button is-danger" onclick="return confirm('Are you sure you want to delete this bean?')">Delete</a>
         {{/if}}
       </form>
+      <br />
+      <ul id="comments">
+        <p class="title">Comments</p>
+        <li>
+          <form action="/bean/comment" method="post" id="commentform">
+            Rating: 
+            <select name="rating" class="select">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <br /><br />
+            <textarea name="comment" class="textarea" placeholder="I hate this bean."></textarea>
+            <input type="hidden" name="_id" value="{{_id}}"/>
+            <input class="button" type="submit" />
+          </form>
+        </li>
+        {{#each comments}} {{#with this}}
+        <li>{{posterId}}: {{comment}} {{rating}} stars <time>{{moment timestamp}}</time></li>
+        {{/with}} {{/each}}
+      </ul>
     </div>
   </div>
   {{/with}}
