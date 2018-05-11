@@ -27,6 +27,9 @@ async function main() {
     'cool',
     'https://duckduckgo.com/i/21314ece.jpg'
   );
+
+  await beans.addComment(lima._id, lima.title, phil._id, 'this is great!', 5);
+  await beans.addComment(pinto._id, pinto.title, kidney._id, 'this sucks!', 1);
 }
 
 db
