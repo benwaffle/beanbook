@@ -17,6 +17,7 @@ const beanSchema = new Schema({
   title: String,
   description: String,
   imageUrl: String,
+  rating: Number,
   comments: [{ posterId: String, comment: String, rating: Number }]
 });
 beanSchema.index({title: 'text', description: 'text', creatorId: 'text',
