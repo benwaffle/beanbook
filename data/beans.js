@@ -55,14 +55,14 @@ module.exports = {
       timestamp: new Date().toISOString()
     };
 
-    const bean = Bean.findById(beanId, function(err, bean) {
+    const bean = await Bean.findById(beanId, function(err, bean) {
       if(err) {
         throw err;
       }
       bean.comments.unshift(newComment);
       bean.save();
     });
-    actions.addAction(posterId, 'commented', beanId, beanName, comment);
+    await actions.addAction(posterId, 'commented', beanId, beanName, comment);
     return newComment;
   },
   searchBeans(searchTerm) {
