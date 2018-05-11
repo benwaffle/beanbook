@@ -48,22 +48,18 @@ module.exports = {
     if (!comment) throw "Comment must not be blank";
     if (!rating) throw "Please rate this bean";
 
-    const newComment = {
-      posterId,
-      comment,
-      rating,
-      timestamp: new Date().toISOString()
-    };
-
-    const bean = await Bean.findById(beanId, function(err, bean) {
-      if(err) {
-        throw err;
+    await Bean.findByIdAndUpdate(beanId, {
+      $push: {
+        comments: {
+          posterId,
+          comment,
+          rating,
+          timestamp: new Date().toISOString()
+        }
       }
-      bean.comments.unshift(newComment);
-      bean.save();
-    });
+    }).exec();
+
     await actions.addAction(posterId, 'commented', beanId, beanName, comment);
-    return newComment;
   },
   searchBeans(searchTerm) {
     return Bean.find( { $text: { $search: searchTerm } } );
