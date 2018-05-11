@@ -97,6 +97,8 @@ app.post("/signup", async (req, res) => {
   }
 
   try {
+    if (username === '' || password === '')
+      throw new Error('empty username or password');
     const passwordHash = await bcrypt.hash(password, 12);
     await users.addUser(username, passwordHash);
     req.session.user = username;
