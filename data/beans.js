@@ -43,10 +43,10 @@ module.exports = {
     return Bean.findOneAndUpdate({ _id }, updatedBean).exec()
   },
   addComment(beanId, beanName, posterId, comment, rating) {
-    if(!beanId) throw "There must be a beanId";
-    if(!posterId) throw "There must be a creator for this bean";
-    if(!comment) throw "Comment must not be blank";
-    if(!rating) throw "Please rate this bean";
+    if (!beanId) throw "There must be a beanId";
+    if (!posterId) throw "There must be a creator for this bean";
+    if (!comment) throw "Comment must not be blank";
+    if (!rating) throw "Please rate this bean";
 
     const newComment = {
       posterId,

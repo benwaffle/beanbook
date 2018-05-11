@@ -40,13 +40,17 @@ router.post("/search", async (req, res) => {
 
 router.post("/comment", auth, async (req, res) => {
   const {comment, rating, _id} = req.body;
-  const user = req.session.user;
-  try{
+  try {
     const bean = await beans.getBeanById(_id);
-    await beans.addComment(_id, bean.title, user, comment, rating);
+    await beans.addComment(_id, bean.title, req.session.user, comment, rating);
     res.redirect('/bean/' + _id)
   }catch(e){
-    console.log(e);
+    const bean = await beans.getBeanById(_id);
+    res.render('viewbean', {
+      bean,
+      editable: bean.creatorId === req.session.user,
+      error: e
+    });
   }
 });
 
